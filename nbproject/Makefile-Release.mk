@@ -36,12 +36,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/conexao.o \
+	${OBJECTDIR}/enviar_email.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/monitoramento.o
 
 
 # C Compiler Flags
-CFLAGS=-locilib -L/usr/local/include -lpthread
+CFLAGS=-locilib -L/usr/local/include -lcurl
 
 # CC Compiler Flags
 CCFLAGS=
@@ -68,6 +69,11 @@ ${OBJECTDIR}/conexao.o: conexao.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/conexao.o conexao.c
+
+${OBJECTDIR}/enviar_email.o: enviar_email.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enviar_email.o enviar_email.c
 
 ${OBJECTDIR}/main.o: main.c 
 	${MKDIR} -p ${OBJECTDIR}

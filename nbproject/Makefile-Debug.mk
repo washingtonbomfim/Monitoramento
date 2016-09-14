@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/conexao.o \
+	${OBJECTDIR}/enviar_email.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/monitoramento.o
 
@@ -68,6 +69,11 @@ ${OBJECTDIR}/conexao.o: conexao.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/conexao.o conexao.c
+
+${OBJECTDIR}/enviar_email.o: enviar_email.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enviar_email.o enviar_email.c
 
 ${OBJECTDIR}/main.o: main.c 
 	${MKDIR} -p ${OBJECTDIR}

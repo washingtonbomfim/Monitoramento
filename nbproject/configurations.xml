@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Arquivos de Cabeçalho"
                    projectFiles="true">
+      <itemPath>base64.h</itemPath>
       <itemPath>conexao.h</itemPath>
       <itemPath>monitoramento.h</itemPath>
     </logicalFolder>
@@ -11,6 +12,7 @@
                    displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
       <itemPath>conexao.c</itemPath>
+      <itemPath>enviar_email.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>monitoramento.c</itemPath>
     </logicalFolder>
@@ -53,9 +55,13 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/monitoramento</output>
         </linkerTool>
       </compileType>
+      <item path="base64.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="conexao.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="conexao.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="enviar_email.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -73,7 +79,7 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
-          <commandLine>-locilib -L/usr/local/include -lpthread</commandLine>
+          <commandLine>-locilib -L/usr/local/include -lcurl</commandLine>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
@@ -85,9 +91,13 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="base64.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="conexao.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="conexao.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="enviar_email.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>

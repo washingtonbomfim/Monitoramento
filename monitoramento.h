@@ -27,10 +27,10 @@ void adiciona_ip_monitoramento(char *ip);
 void busca_ip_configurado();
 void exibe_ip_configurado();
 struct sockaddr_in inicia_monitoramento(char *ip);
-void ping(void *cabecalho, char *ip);
+void ping(struct sockaddr_in *addr, char *ip, int sk);
 int checksum(void *b, int len);
 int abre_socket();
-void gera_log(char *ip);
+void gera_log(char *relatorio, char *ip);
 
 #endif	/* MONITORAMENTO_H */
 

@@ -14,7 +14,7 @@ char* oracle(){
     }
             
     char *hora;
-    cn = OCI_ConnectionCreate("EX01", "washington", "bomfim159753", OCI_SESSION_DEFAULT);
+    cn = OCI_ConnectionCreate("", "", "", OCI_SESSION_DEFAULT);
     st = OCI_StatementCreate(cn);
     OCI_ExecuteStmt(st, "select sysdate from dual");
 
@@ -24,7 +24,6 @@ char* oracle(){
     {
          printf("%s\n",OCI_GetString(rs, 1));
          hora = OCI_GetString(rs, 1);
-         
     }
     
     OCI_Cleanup();

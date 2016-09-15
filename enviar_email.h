@@ -4,7 +4,7 @@
 #define PORT 25
 #define FROM "washington@brasilcard.com"
 #define RECIPIENT "washington@brasilcard.com"
-#define SMTP "200.178.253.14"
+#define SMTP ""
 #define TEXT "teste 1234"
 
 #define fatal(x...)	fprintf(stderr, x)
@@ -16,7 +16,7 @@ static char base64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 "+/";
 
 char login[] = "washington@brasilcard.com";
-char password[] = "bomfim@159753";
+char password[] = "";
 
 int envia_email(char *mensagem);
 void sendsock(u_int sock, u_char* format, ...);

@@ -26,7 +26,7 @@ void criar_arquivo();
 void adiciona_ip_monitoramento(char *ip);
 void busca_ip_configurado();
 void exibe_ip_configurado();
-struct sockaddr_in inicia_monitoramento(char *ip);
+struct sockaddr_in monta_cabecalho_protocolo(char *ip);
 void ping(struct sockaddr_in *addr, char *ip, int sk);
 int checksum(void *b, int len);
 int abre_socket();

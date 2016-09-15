@@ -103,7 +103,7 @@ void busca_ip_configurado(){
         }
         if(buffer[x] == '\n'){
             buffer[x] = '\0';
-            addr = inicia_monitoramento(buffer);
+            addr = monta_cabecalho_protocolo(buffer);
             sd = abre_socket();
             quedas_total = 0;
             ping(&addr,buffer, sd);
@@ -115,7 +115,7 @@ void busca_ip_configurado(){
     fclose(arquivo);
 }
 
-struct sockaddr_in inicia_monitoramento(char *ip){
+struct sockaddr_in monta_cabecalho_protocolo(char *ip){
     
     struct hostent *hname;
     struct sockaddr_in addr;
@@ -199,7 +199,7 @@ void ping(struct sockaddr_in *addr, char *ip, int sk) {
     if(quedas == 3){
         quedas_total++;
         printf("Tentativa de Ping %d de 3... \n",quedas_total);
-        struct sockaddr_in addrb = inicia_monitoramento(ip);
+        struct sockaddr_in addrb = monta_cabecalho_protocolo(ip);
         ping(&addrb, ip, sk);
     }
     close(sk);

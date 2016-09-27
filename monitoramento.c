@@ -13,6 +13,9 @@
 #include <unistd.h>
 
 #include "monitoramento.h"
+#include "cria_arquivo_conf.h"
+#include "conexao.h"
+#include "envia_sms.h"
 
 struct packet {
     struct icmphdr hdr;
@@ -22,60 +25,19 @@ struct packet {
 int pid = -1, quedas_total = 0;
 struct protoent *protocolo = NULL;
 
-void verifica_arquivo(){
+struct sockaddr_in monta_cabecalho_protocolo(char *ip){
     
-    FILE *arquivo;
-    arquivo = fopen(ARQ_CONF,"r");
-       
-    if(!arquivo){
-        arquivo = fopen(ARQ_CONF,"wb");
-        fclose(arquivo);
-    }else{
-        fclose(arquivo);
-    }
-    
-    arquivo = fopen(ARQ_LOG,"r");
-    
-    if(!arquivo){
-        arquivo = fopen(ARQ_LOG,"wb");
-        fclose(arquivo);
-    }else{
-        fclose(arquivo);
-    }
-}
+    struct hostent *hname;
+    struct sockaddr_in addr;
+    pid = getpid();
+    protocolo = getprotobyname("ICMP");
+    hname = gethostbyname(ip);
+    memset(&addr, 0, sizeof(addr));
+    addr.sin_family = hname->h_addrtype;
+    addr.sin_port = 0;
+    addr.sin_addr.s_addr = *(long*) hname->h_addr;
 
-void adiciona_ip_monitoramento(char *ip){
-    
-    verifica_arquivo();
-    FILE *arquivo;
-    arquivo = fopen(ARQ_CONF,"r");
-    
-    if(!arquivo){
-        printf("Ocorreu um erro ao abrir/criar arquivo onde fica salvo os Ips de monitoramento.\n");
-    }
-    fclose(arquivo);
-    
-    arquivo = fopen(ARQ_CONF,"a");
-    fprintf(arquivo,"%s\n",ip);
-    printf("Ip Adciononado, %s .\n",ip);
-    fclose(arquivo);
-}
-
-void exibe_ip_configurado(){
-    
-    FILE *arquivo;
-    char buffer;
-    arquivo = fopen(ARQ_CONF,"r");
-    
-    if(!arquivo){
-        printf("Não foi possivel listar os Ips.\n");
-        exit(1);
-    }
-    
-    while((buffer=fgetc(arquivo))!= EOF){
-        putchar(buffer);
-    }
-    fclose(arquivo);
+    return addr;     
 }
 
 void busca_ip_configurado(){
@@ -89,7 +51,7 @@ void busca_ip_configurado(){
     memset(&buffer, 0, sizeof(buffer));
     
     if(!arquivo){
-        printf("Não foi possivel listar os Ips\n");
+        gera_log("Não foi possivel listar os Ips");
         exit(1);
     }
     while(1){
@@ -115,21 +77,6 @@ void busca_ip_configurado(){
     fclose(arquivo);
 }
 
-struct sockaddr_in monta_cabecalho_protocolo(char *ip){
-    
-    struct hostent *hname;
-    struct sockaddr_in addr;
-    pid = getpid();
-    protocolo = getprotobyname("ICMP");
-    hname = gethostbyname(ip);
-    memset(&addr, 0, sizeof(addr));
-    addr.sin_family = hname->h_addrtype;
-    addr.sin_port = 0;
-    addr.sin_addr.s_addr = *(long*) hname->h_addr;
-
-    return addr;     
-}
-
 int abre_socket(){
     
     int sd;
@@ -137,16 +84,16 @@ int abre_socket(){
     
     sd = socket(PF_INET, SOCK_RAW, 1);
     if (sd < 0) {
-        perror("Não foi possivel abrir socket\n");
+        gera_log("Não foi possivel abrir socket");
         return;
     }
 
     if (setsockopt(sd, SOL_IP, IP_TTL, &val, sizeof (val)) != 0){
-        perror("Set TTL option");
+        gera_log("Set TTL option");
     }        
 
     if (fcntl(sd, F_SETFL, O_NONBLOCK) != 0){
-        perror("Request nonblocking I/O");
+        gera_log("Request nonblocking I/O");
     }
     
     return sd;
@@ -157,6 +104,7 @@ void ping(struct sockaddr_in *addr, char *ip, int sk) {
     int i, qtd_ping = 0, quedas = 0, t = 0;
     struct packet pckt;
     struct sockaddr_in r_addr;
+    char mensagem[50];
     
     for ( qtd_ping ; qtd_ping <= 3; qtd_ping++) {
         int len = sizeof (r_addr);
@@ -184,14 +132,17 @@ void ping(struct sockaddr_in *addr, char *ip, int sk) {
         pckt.hdr.checksum = checksum(&pckt, sizeof (pckt));
 
         if (sendto(sk, &pckt, sizeof(pckt), 0, (struct sockaddr*) addr, sizeof(*addr)) <= 0) {
-            perror("Erro ao enviar pacote.\n");
+            gera_log("Erro ao enviar pacote.");
         }
         sleep(1);
     }
     
     if(quedas_total == 3){
-        printf(YELLOW "Enviado email sobre informações de queda." RESET "\n");
-        gera_log("Enviado email sobre informações de queda.",ip);
+        gera_log("Enviado email sobre informações de queda.");
+        sprintf(mensagem,"Queda do Ip %s. Favor verificar.",ip);
+        gera_log(mensagem);
+        envia_email(mensagem);
+        preprara_envio_sms(mensagem);
         close(sk);
         return;
     }
@@ -224,22 +175,4 @@ int checksum(void *b, int len){
     result = ~sum;
 
     return result;
-}
-
-void gera_log(char *relatorio,char *ip){
- 
-    verifica_arquivo();
-    FILE *arquivo;
-    arquivo = fopen(ARQ_LOG,"r");
-    int x = 0;
-    
-    if(!arquivo){
-        printf("Ocorreu um erro ao abrir/criar arquivo onde fica salvo os logs de erro.\n");
-        return;
-    }
-    
-    arquivo = fopen(ARQ_LOG,"a");
-    fprintf(arquivo,"Data : %s Hora: %s - IP: %s - Mensagem = %s\n",__DATE__,__TIME__, ip,relatorio);
-    fclose(arquivo);
-    x = envia_email(relatorio);
 }

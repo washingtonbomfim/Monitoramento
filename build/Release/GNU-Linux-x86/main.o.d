@@ -1,5 +1,10 @@
-build/Release/GNU-Linux-x86/main.o: main.c conexao.h monitoramento.h
+build/Release/GNU-Linux-x86/main.o: main.c conexao.h cria_daemon.h \
+ monitoramento.h cria_arquivo_conf.h
 
 conexao.h:
 
+cria_daemon.h:
+
 monitoramento.h:
+
+cria_arquivo_conf.h:

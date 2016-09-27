@@ -6,12 +6,18 @@
                    projectFiles="true">
       <itemPath>base64.h</itemPath>
       <itemPath>conexao.h</itemPath>
+      <itemPath>cri_arquivo_conf.h</itemPath>
+      <itemPath>cria_daemon.h</itemPath>
+      <itemPath>envia_sms.h</itemPath>
       <itemPath>monitoramento.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
       <itemPath>conexao.c</itemPath>
+      <itemPath>cria_arquivo_conf.c</itemPath>
+      <itemPath>cria_daemon.c</itemPath>
+      <itemPath>envia_sms.c</itemPath>
       <itemPath>enviar_email.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>monitoramento.c</itemPath>
@@ -61,6 +67,18 @@
       </item>
       <item path="conexao.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="cri_arquivo_conf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="cria_arquivo_conf.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="cria_daemon.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="cria_daemon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="envia_sms.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="envia_sms.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="enviar_email.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
@@ -79,7 +97,7 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
-          <commandLine>-locilib -L/usr/local/include -lcurl</commandLine>
+          <commandLine>-locilib -L/usr/local/include -lcurl -ljson-c</commandLine>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
@@ -96,6 +114,18 @@
       <item path="conexao.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="conexao.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="cri_arquivo_conf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="cria_arquivo_conf.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="cria_daemon.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="cria_daemon.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="envia_sms.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="envia_sms.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="enviar_email.c" ex="false" tool="0" flavor2="0">
       </item>

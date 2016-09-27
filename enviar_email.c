@@ -88,7 +88,7 @@ int envia_email(char *mensagem) {
 
     recv(sd, sockbuf, sizeof(sockbuf), 0);
     printf("%s\n", sockbuf);
-    printf("ate aui ok\n");
+    //printf("ate aui ok\n");
     
     sleep(delay);
     

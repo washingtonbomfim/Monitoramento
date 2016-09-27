@@ -18,19 +18,13 @@
 #define BOLDCYAN    "\033[1m\033[36m"
 #define BOLDWHITE   "\033[1m\033[37m"
 
-#define ARQ_CONF "monitoramento.conf"
-#define ARQ_LOG  "monitoramento.log"
 #define PACKETSIZE	64
 
-void criar_arquivo();
-void adiciona_ip_monitoramento(char *ip);
-void busca_ip_configurado();
-void exibe_ip_configurado();
 struct sockaddr_in monta_cabecalho_protocolo(char *ip);
+void busca_ip_configurado();
+int abre_socket();
 void ping(struct sockaddr_in *addr, char *ip, int sk);
 int checksum(void *b, int len);
-int abre_socket();
-void gera_log(char *relatorio, char *ip);
 
 #endif	/* MONITORAMENTO_H */
 

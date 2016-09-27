@@ -1,1 +1,0 @@
-gcc -locilib -L/usr/local/include conexao.o main.o monitoramento.o -o teste

@@ -2,8 +2,8 @@
 #define	ENVIAR_EMAIL_H
 
 #define PORT 25
-#define FROM "washington@brasilcard.com"
-#define RECIPIENT "washington@brasilcard.com"
+#define FROM ""
+#define RECIPIENT ""
 #define SMTP ""
 #define TEXT "teste 1234"
 
@@ -15,7 +15,7 @@ static char base64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 "0123456789"
 "+/";
 
-char login[] = "washington@brasilcard.com";
+char login[] = "";
 char password[] = "";
 
 int envia_email(char *mensagem);

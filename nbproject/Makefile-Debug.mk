@@ -36,6 +36,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/conexao.o \
+	${OBJECTDIR}/cria_arquivo_conf.o \
+	${OBJECTDIR}/cria_daemon.o \
+	${OBJECTDIR}/envia_sms.o \
 	${OBJECTDIR}/enviar_email.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/monitoramento.o
@@ -69,6 +72,21 @@ ${OBJECTDIR}/conexao.o: conexao.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/conexao.o conexao.c
+
+${OBJECTDIR}/cria_arquivo_conf.o: cria_arquivo_conf.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/cria_arquivo_conf.o cria_arquivo_conf.c
+
+${OBJECTDIR}/cria_daemon.o: cria_daemon.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/cria_daemon.o cria_daemon.c
+
+${OBJECTDIR}/envia_sms.o: envia_sms.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/envia_sms.o envia_sms.c
 
 ${OBJECTDIR}/enviar_email.o: enviar_email.c 
 	${MKDIR} -p ${OBJECTDIR}

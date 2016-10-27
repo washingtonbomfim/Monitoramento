@@ -16,6 +16,7 @@
 #include "cria_arquivo_conf.h"
 #include "conexao.h"
 #include "envia_sms.h"
+#include "enviar_email.h"
 
 struct packet {
     struct icmphdr hdr;
@@ -140,9 +141,8 @@ void ping(struct sockaddr_in *addr, char *ip, int sk) {
     if(quedas_total == 3){
         gera_log("Enviado email sobre informações de queda.");
         sprintf(mensagem,"Queda do Ip %s. Favor verificar.",ip);
+        verifica_quedas(ip, mensagem);
         gera_log(mensagem);
-        envia_email(mensagem);
-        preprara_envio_sms(mensagem);
         close(sk);
         return;
     }
@@ -154,6 +154,22 @@ void ping(struct sockaddr_in *addr, char *ip, int sk) {
         ping(&addrb, ip, sk);
     }
     close(sk);
+}
+
+void verifica_quedas(char *ip, char *mensagem){
+    
+    int verifica = 0;
+    
+    verifica = busca_ip_down(ip);
+    if(verifica == 0){
+        adiciona_ips_down(ip);
+        //envia_email(mensagem);
+        //preprara_envio_sms(mensagem);
+    }else if(verifica == 2){
+        //envia_email(mensagem);
+        //preprara_envio_sms(mensagem);
+    }   
+
 }
 
 int checksum(void *b, int len){

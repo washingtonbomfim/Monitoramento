@@ -1,7 +1,10 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
+#include <sys/stat.h>
 #include <sys/resource.h>
-#include <fcntl.h>
+#include <fcntl.h> // open function
+#include <unistd.h> // close function
 
 void daemonize(void) {
     int i = 0;
@@ -34,10 +37,6 @@ void daemonize(void) {
         exit(1);
     }
     umask(0);
-    
-    //if (chdir("/") < 0) {
-      //  exit(1);
-    //}
 
     if (getrlimit(RLIMIT_NOFILE, &rlimit) < 0) {
         exit(1);

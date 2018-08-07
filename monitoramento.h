@@ -20,11 +20,15 @@
 
 #define PACKETSIZE	64
 
+#include "lista_ips_down.h"
+
 struct sockaddr_in monta_cabecalho_protocolo(char *ip);
 void busca_ip_configurado();
 int abre_socket();
-void ping(struct sockaddr_in *addr, char *ip, int sk);
+void ping(struct sockaddr_in *addr, char *ip, int sk, lista *l);
+void verifica_quedas(char *ip, char *mensagem, lista *l);
 int checksum(void *b, int len);
+
 
 #endif	/* MONITORAMENTO_H */
 

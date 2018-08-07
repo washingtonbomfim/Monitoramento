@@ -100,13 +100,14 @@ PUBLIC int envia_sms(Mensagem Msg){
         gera_log("ERROR: nao conseguiu fazer o curl_easy_init()");
         return 1;
     }
-    headers = curl_slist_append(headers, "");
+    headers = curl_slist_append(headers, "Authorization: Basic YnJhc2lsY2FyZC5yZXN0OlBNMFFIcnl5ZmU=");
     headers = curl_slist_append(headers, "Accept: application/json");
     headers = curl_slist_append(headers, "Content-Type: application/json");    
 
     json = json_object_new_object();
     fflush(stdout);
-    sprintf(string_url, "{\"sendSmsRequest\": { \"from\": \"empresa\", \"to\": \"%s\",\"schedule\": \"%s\",\"msg\": \"%s \",\"callbackOption\": \"NONE\",\"id\": \"'%d'\",\"aggregateId\": \"1111\"}}\n", Msg.telefone,Msg.dia,Msg.msg,Msg.id_msg);
+    sprintf(string_url, "{\"sendSmsRequest\": { \"from\": \"Brasilcard\", \"to\": \"%s\",\"schedule\": \"%s\",\"msg\": \"%s \",\"callbackOption\": \"NONE\",\"id\": \"'%d'\",\"aggregateId\": \"1111\"}}\n", Msg.telefone,Msg.dia,Msg.msg,Msg.id_msg);
+    printf("%s\n",string_url);
     json = json_tokener_parse(string_url);
     curl_easy_setopt(ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_easy_setopt(ch, CURLOPT_HTTPHEADER, headers);

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "conexao.h"
+#include "lista_ips_down.h"
 #include "cria_daemon.h"
 #include "monitoramento.h"
 #include "cria_arquivo_conf.h"
@@ -38,7 +38,8 @@ int main(int argc, char** argv) {
     }    
     if(strcmp(argv[1],"start")==0){
         gera_log("Iniciando Monitoramento");
-        daemonize();
+        //daemonize();
+        
         busca_ip_configurado();
     }
     if(strcmp(argv[1],"-h") || strcmp(argv[1],"-help") || strcmp(argv[1],"--help")){
@@ -54,5 +55,7 @@ void ajuda(){
     printf("monitoramento -t          *** Adicionar telefone para envio de sms. Ex: -t 5564992165920\n");
     printf("monitoramento -m          *** Mostra Ips e Numeros de celulares configurados.\n");
     printf("monitoramento start       *** Inicia o software\n");
+    printf("monitoramento status      *** Vefica se esta Ativo ou Inativo\n");
+    printf("monitoramento stop        *** Força parada\n");
     exit(0);
 }

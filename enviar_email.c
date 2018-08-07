@@ -1,14 +1,21 @@
 /*Jan Hodermarsky, 2011*/
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/socket.h>
+#include <fcntl.h> // open function
+#include <unistd.h> // close function
 #include <netinet/in.h>
 #include <netdb.h>
 #include <errno.h>
 #include <stdarg.h>
 
 #include "enviar_email.h"
+
+char login[] = "washington@brasilcard.com";
+char password[] = "bomfim@159753";
 
 void sendsock(u_int sock, u_char* format, ...);
 
@@ -20,8 +27,8 @@ int envia_email(char *mensagem) {
     u_int sd, delay = 3;
     
     if (!(hp = gethostbyname(SMTP))) {
-		fatal("Não foi Possivel resolver ip.\n");
-		return 1;
+        fatal("Não foi Possivel resolver ip.\n");
+	return 1;
     }
     
     memset((u_char *)&home, 0, sizeof(home));
@@ -30,8 +37,8 @@ int envia_email(char *mensagem) {
     memcpy((u_char *)&home.sin_addr, hp->h_addr, hp->h_length);
         
     if ((sd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-		perror("Não Foi possivel abrir soket para enviar Email.\n");
-		return 1;
+        perror("Não Foi possivel abrir soket para enviar Email.\n");
+	return 1;
     }
     
     if (connect(sd, (struct sockaddr *)&home, sizeof(home)) < 0) {
@@ -40,15 +47,14 @@ int envia_email(char *mensagem) {
     }
 
     clean(sockbuf);
-    if (recv(sd, sockbuf, sizeof(sockbuf), 0) < 0)
-    {
-		fatal("recv() error\n");
-		return 1;
+    if (recv(sd, sockbuf, sizeof(sockbuf), 0) < 0){
+	fatal("recv() error\n");
+	return 1;
     }
     
     if (sockbuf[0] != '2'){ /* if we didnt recieve MTA banner quit then */
-		fatal("Baniram nois :(\n");
-		return 1;
+	fatal("Baniram nois :(\n");
+	return 1;
     }
     
     fprintf(stdout, "[+] Connected: %s", sockbuf);
@@ -72,7 +78,7 @@ int envia_email(char *mensagem) {
     }
     clean(sockbuf);
     sendsock(sd, "DATA\r\n");
-	/* Is relaying allowed here ? */
+    //sendsock(sd,"Alerta! Queda de VPN \r\n");
     recv(sd, sockbuf, sizeof(sockbuf), 0);
     if (sockbuf[0] == '5') {
         fatal("[!] Something goes wrong: %s", sockbuf);
@@ -81,14 +87,13 @@ int envia_email(char *mensagem) {
     clean(sockbuf);
 	
     sleep(delay);
-
+    sendsock(sd,"Alerta! Queda de VPN \r\n");
     sendsock(sd, "%s\r\n", mensagem);
     sendsock(sd, ".\r\n");
     sleep(delay);
 
     recv(sd, sockbuf, sizeof(sockbuf), 0);
     printf("%s\n", sockbuf);
-    //printf("ate aui ok\n");
     
     sleep(delay);
     
@@ -117,9 +122,9 @@ int encode(unsigned s_len, char *src, unsigned d_len, char *dst){
             sr |= (*(src+triad+byte) & 0xff);
         }
 
-        sr <<= (6-((8*byte)%6))%6; /*shift left to next 6bit alignment*/
+        sr <<= (6-((8*byte)%6))%6;
 
-        if (d_len < 4) return 1; /* error - dest too short */
+        if (d_len < 4) return 1;
 
         *(dst+0) = *(dst+1) = *(dst+2) = *(dst+3) = '=';
         switch(byte){

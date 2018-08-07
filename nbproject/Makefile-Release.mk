@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
 CND_CONF=Release
 CND_DISTDIR=dist
@@ -35,17 +35,17 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/conexao.o \
 	${OBJECTDIR}/cria_arquivo_conf.o \
 	${OBJECTDIR}/cria_daemon.o \
 	${OBJECTDIR}/envia_sms.o \
 	${OBJECTDIR}/enviar_email.o \
+	${OBJECTDIR}/lista_ips_down.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/monitoramento.o
 
 
 # C Compiler Flags
-CFLAGS=-locilib -L/usr/local/include -lcurl -ljson-c
+CFLAGS=-lcurl -ljson-c
 
 # CC Compiler Flags
 CCFLAGS=
@@ -68,37 +68,37 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/monitoramento: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/monitoramento ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/conexao.o: conexao.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/conexao.o conexao.c
-
-${OBJECTDIR}/cria_arquivo_conf.o: cria_arquivo_conf.c 
+${OBJECTDIR}/cria_arquivo_conf.o: cria_arquivo_conf.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/cria_arquivo_conf.o cria_arquivo_conf.c
 
-${OBJECTDIR}/cria_daemon.o: cria_daemon.c 
+${OBJECTDIR}/cria_daemon.o: cria_daemon.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/cria_daemon.o cria_daemon.c
 
-${OBJECTDIR}/envia_sms.o: envia_sms.c 
+${OBJECTDIR}/envia_sms.o: envia_sms.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/envia_sms.o envia_sms.c
 
-${OBJECTDIR}/enviar_email.o: enviar_email.c 
+${OBJECTDIR}/enviar_email.o: enviar_email.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enviar_email.o enviar_email.c
 
-${OBJECTDIR}/main.o: main.c 
+${OBJECTDIR}/lista_ips_down.o: lista_ips_down.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/lista_ips_down.o lista_ips_down.c
+
+${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
 
-${OBJECTDIR}/monitoramento.o: monitoramento.c 
+${OBJECTDIR}/monitoramento.o: monitoramento.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/monitoramento.o monitoramento.c
@@ -109,7 +109,6 @@ ${OBJECTDIR}/monitoramento.o: monitoramento.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/monitoramento
 
 # Subprojects
 .clean-subprojects:

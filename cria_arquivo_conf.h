@@ -1,9 +1,9 @@
 #ifndef CRIA_ARQUIVO_CONF_H
 #define	CRIA_ARQUIVO_CONF_H
 
-#define ARQ_CONF "ip.conf"
-#define ARQ_LOG  "monitoramento.log"
-#define ARQ_TEL  "telefone.conf"
+#define ARQ_CONF        "/root/Monitoramento/ip.conf"
+#define ARQ_LOG         "/root/Monitoramento/monitoramento.log"
+#define ARQ_TEL         "/root/Monitoramento/telefone.conf"
 
 void verifica_arquivos();
 void adiciona_telefone(char *telefone);

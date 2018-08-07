@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="95">
+<configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Arquivos de Cabeçalho"
                    projectFiles="true">
       <itemPath>base64.h</itemPath>
-      <itemPath>conexao.h</itemPath>
       <itemPath>cri_arquivo_conf.h</itemPath>
       <itemPath>cria_daemon.h</itemPath>
       <itemPath>envia_sms.h</itemPath>
+      <itemPath>lista_ips_down.h</itemPath>
       <itemPath>monitoramento.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Arquivos de Código-Fonte"
                    projectFiles="true">
-      <itemPath>conexao.c</itemPath>
       <itemPath>cria_arquivo_conf.c</itemPath>
       <itemPath>cria_daemon.c</itemPath>
       <itemPath>envia_sms.c</itemPath>
       <itemPath>enviar_email.c</itemPath>
+      <itemPath>lista_ips_down.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>monitoramento.c</itemPath>
     </logicalFolder>
@@ -63,10 +63,6 @@
       </compileType>
       <item path="base64.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="conexao.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="conexao.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="cri_arquivo_conf.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="cria_arquivo_conf.c" ex="false" tool="0" flavor2="0">
@@ -80,6 +76,10 @@
       <item path="envia_sms.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="enviar_email.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lista_ips_down.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lista_ips_down.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -97,7 +97,7 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
-          <commandLine>-locilib -L/usr/local/include -lcurl -ljson-c</commandLine>
+          <commandLine>-lcurl -ljson-c</commandLine>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
@@ -110,10 +110,6 @@
         </asmTool>
       </compileType>
       <item path="base64.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="conexao.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="conexao.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="cri_arquivo_conf.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -128,6 +124,10 @@
       <item path="envia_sms.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="enviar_email.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lista_ips_down.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lista_ips_down.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
